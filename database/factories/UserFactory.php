@@ -24,12 +24,29 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $tenants = [
+            'quintana.nelson@example.com',
+            'rcervantes@example.org',
+            'umarin@example.com',
+            'bfurtado@example.com',
+            'eavila@example.net',
+        ];
+
+        $role = [
+            'adm_sys',
+            'adm_enterprise',
+            'support_agent',
+            'client'
+        ];
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'tenant_id' => $tenants[array_rand($tenants)],
+            'role' => $role[array_rand($role)],
         ];
     }
 
